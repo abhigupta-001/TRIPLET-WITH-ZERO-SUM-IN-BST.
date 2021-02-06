@@ -1,0 +1,53 @@
+void inorder(node *p, vector<int> &v)
+{
+    if(p==NULL)
+     return;
+     inorder(p->left,v);
+     v.push_back(p->key);
+     inorder(p->right,v);
+}
+
+bool  istripletpresent(vector<int> v,int x,int sum)
+{
+    int l,r;
+    for(int i=0;i<x-2;i++)
+    {
+        l=i+1;
+        r=x-1;
+        while(l<r)
+        {
+            if(v[i]+v[l]+v[r]==sum)
+            {
+                return true;
+            }
+            else if(v[i]+v[l]+v[r]<sum)
+            {
+                l++;
+            }
+            else
+            {
+                r--;
+            }
+        }
+    }
+    return false;
+    
+}
+
+bool isTripletPresent(node *root)
+{
+//add code here.
+    if(root==NULL)
+    {
+        return true;
+        
+    }
+    vector<int> v;
+    
+    inorder(root,v);
+    
+    int x= v.size();
+    int sum =0;
+    
+    return istripletpresent(v,x,sum);
+}
